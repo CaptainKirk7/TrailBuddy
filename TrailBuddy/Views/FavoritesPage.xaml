@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TrailBuddy.ViewModels" 
+             x:Class="TrailBuddy.Views.FavoritesPage"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#0b5e1e"
+             BackgroundColor="#212121"
+             Title="Saved Trails">
+
+        <Grid BackgroundColor="#212121" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+
+            <!-- Main list view -->
+            <ListView x:Name="ItemsListView"
+                      ItemsSource="{Binding Favorites}"
+                      ItemTapped="ItemsListView_ItemTapped"
+                      RowHeight="175"
+                      BackgroundColor="#212121"
+                      HorizontalOptions="CenterAndExpand"
+                      VerticalOptions="CenterAndExpand"
+                      SeparatorColor="#212121"
+                      Grid.Row="0" >
+
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <ViewCell>
+                            <Grid BackgroundColor="#212121" Margin="10">
+                                <Frame HasShadow="True"
+                                        BorderColor="#212121"
+                                        BackgroundColor="#212e21"
+                                        HeightRequest="150"
+                                        WidthRequest="375"
+                                        CornerRadius="25"
+                                        IsClippedToBounds="True">
+
+                                    <Grid ColumnSpacing="7" BackgroundColor="#212e21" Margin="-10">
+                                        <Grid.ColumnDefinitions>
+                                            <!--Pic-->
+                                            <ColumnDefinition Width="120"/>
+                                            <!--Info-->
+                                            <ColumnDefinition Width="*"/>
+                                            <!--Rating and buttons-->
+                                            <ColumnDefinition Width="75"/>
+
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
+
+                                        <Image Source="{Binding ImageSource}"
+                                                Aspect="AspectFill"
+                                                Grid.Row="0"
+                                                HeightRequest="150"
+                                                WidthRequest="140"
+                                                Grid.RowSpan="3"
+                                                Grid.Column="0"
+                                        />
+
+                                        <Label Text="{Binding Name}"
+                                                FontAttributes="Bold"
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="1"
+                                                VerticalOptions="Center"
+                                                TextColor="White"
+                                                Padding="10,10,0,0"
+                                                />
+
+                                        <Label Text="{Binding Address}"
+                                                Opacity="0.6"
+                                                FontSize="11"
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                VerticalOptions="Center"
+                                                TextColor="White"
+                                                Padding="10,0,0,0"
+                                                />
+
+                                        <HorizontalStackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                            <Label Text="{Binding Path=Rating, StringFormat='{0}'}" TextColor="White" Margin="0,0,3,0"/>
+                                            <Image Source="star.png" HeightRequest="10" WidthRequest="10" />
+                                            <Label Text="{Binding Path=UserRatingCount, StringFormat=' ({0})'}" TextColor="White"/>
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout HorizontalOptions="End"
+                                                                Grid.Row="2"
+                                                                Grid.Column="0"
+                                                                Grid.ColumnSpan="4"
+                                                                Spacing="-10">
+                                            <ImageButton
+                                                x:Name="favoriteButton"
+                                                WidthRequest="5"
+                                                Source="{Binding FavoriteImage}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavoritesViewModel}}, Path=FavoriteCommand}"
+                                                CommandParameter="{Binding .}" />
+
+
+                                            <ImageButton
+                                                WidthRequest="5"
+                                                Source="directions.png"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:FavoritesViewModel}}, Path=MapCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </HorizontalStackLayout>
+                            
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Menu bar grid -->
+            <Border BackgroundColor="#0b5e1e"
+                    Stroke="#1e241e"
+                    StrokeShape="RoundRectangle 30,30,30,30"
+                    StrokeThickness="5"
+                    Grid.Row="1" VerticalOptions="EndAndExpand"
+                    Margin="20,24,20,0"
+                    HeightRequest="75">
+
+                <Grid RowSpacing="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE800;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="home"/>
+
+                    <Button Grid.Column="1"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE803;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="weather" />
+
+                    <Button Grid.Column="2"
+                            Grid.RowSpan="2"
+                            FontSize="50"
+                            FontFamily="Icons"
+                            Text="&#xE804;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="local" />
+
+                    <Button Grid.Column="3"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xF097;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="favorites" />
+
+                    <Button Grid.Column="4"
+                            Grid.RowSpan="2"
+                            FontSize="18"
+                            FontFamily="Icons"
+                            Text="&#xF278;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="quick"  />
+
+                    <Label Grid.Row="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Home"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Weather"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="3"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Saved"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="4"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Nearby"
+                            TextColor="White" />
+
+                </Grid>
+            </Border>
+        </Grid>
+
+</ContentPage>

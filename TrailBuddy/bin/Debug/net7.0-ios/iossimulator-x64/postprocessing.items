@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <_PostProcessingItem Include="TrailBuddy.app/TrailBuddy">
+      <BCSymbolMapName>TrailBuddy.bcsymbolmap</BCSymbolMapName>
+      <NoDSymUtil>true</NoDSymUtil>
+      <dSYMSourcePathExists>false</dSYMSourcePathExists>
+      <NoSymbolStrip>true</NoSymbolStrip>
+      <dSYMInfoPlistRelativePath>TrailBuddy.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
+      <SymbolFile>\Users\kirk\Library\Caches\Xamarin\mtbs\builds\TrailBuddy\2c48a79313918c7b641f77f4423ad4a154854ca3875298bdd649255ebdefe16a\obj\Debug\net7.0-ios\iossimulator-x64\mtouch-symbols.list</SymbolFile>
+      <DSymName>TrailBuddy.app.dSYM</DSymName>
+      <SourceProjectPath>C:\Users\nunnk\Documents\cse382_nunnkw\TrailBuddy</SourceProjectPath>
+    </_PostProcessingItem>
+  </ItemGroup>
+</Project>

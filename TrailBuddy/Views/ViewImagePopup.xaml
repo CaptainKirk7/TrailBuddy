@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrailBuddy.Views.ViewImagePopup"
+             xmlns:local="clr-namespace:Trailbuddy"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             BackgroundColor="#E6212121">
+
+    <StackLayout VerticalOptions="Start"
+                 HeightRequest="{Binding ScreenHeight}"
+                 WidthRequest="{Binding ScreenWidth}">
+
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </StackLayout.GestureRecognizers>
+
+        <Frame WidthRequest="{Binding FrameWidth}"
+               HeightRequest="{Binding FrameHeight}"
+               CornerRadius="25"
+               BackgroundColor="#2f2f30"
+               BorderColor="#2f2f30"
+               IsClippedToBounds="True">
+
+            <Grid RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="{Binding ImageSource}"
+                       Aspect="AspectFit" />
+
+                <!-- Submit button -->
+                <Button x:Name="closeButton"
+                        Text="Done"
+                        TextColor="LightGray"
+                        BackgroundColor="#8A153C"
+                        Command="{Binding CloseCommand}"
+                        Grid.Row="3" />
+
+            </Grid>
+        </Frame>
+    </StackLayout>
+</mopups:PopupPage>

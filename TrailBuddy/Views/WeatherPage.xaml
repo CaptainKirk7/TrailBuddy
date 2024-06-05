@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TrailBuddy.ViewModels" 
+             x:Class="TrailBuddy.Views.WeatherPage"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#0d6a75"
+             BackgroundColor="#212121"
+             FlowDirection="LeftToRight"
+             Title="{Binding Title}" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="LightGray" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80" />
+        </Grid.RowDefinitions>
+
+        <!-- Main List View -->
+        <Grid BackgroundColor="#212121" Margin="25" ColumnSpacing="10" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="250"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
+                <Image Source="{Binding Weather.WeatherIcon}"
+                        Aspect="AspectFit"
+                        HeightRequest="150"
+                        WidthRequest="200"/>
+
+                <Label Text="{Binding Weather.Current.Weather[0].Description}" FontSize="25" HorizontalTextAlignment="Center" TextColor="#c8f4f9" />
+            </VerticalStackLayout>
+
+            <!-- Main Info -->
+            <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" >
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" >
+                    <Label Text="{Binding Weather.Current.Temp, StringFormat='{0:F0}'}" FontSize="30" VerticalTextAlignment="Center" />
+                    <Label Text="{Binding DegreeString}" FontSize="30" VerticalTextAlignment="Center" />
+                    <Label Text="{Binding Weather.Current.FeelsLike, StringFormat='Feels like {0:F0}'}" FontSize="17" Opacity=".7" Padding="10,0,0,0" VerticalTextAlignment="Center" />
+                    <Label Text="{Binding DegreeString}" FontSize="17" Opacity=".7" VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Start">
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label Text="{Binding Weather.Daily[0].Temp.Max, StringFormat='High: {0:F0}'}" FontSize="17" />
+                    <Label Text="{Binding DegreeString}" FontSize="17" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Label Text="{Binding Weather.Daily[0].Temp.Min, StringFormat='Min: {0:F0}'}" FontSize="17" />
+                    <Label Text="{Binding DegreeString}" FontSize="17" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Hourly Time -->
+            <CollectionView x:Name="weatherView"
+                    ItemsSource="{Binding Weather.Hourly}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="StartAndExpand"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid BackgroundColor="#212121" Margin="10">
+                            <Frame HasShadow="True"
+                                    BorderColor="#212121"
+                                    BackgroundColor="#c8f4f9"
+                                    WidthRequest="100"
+                                    CornerRadius="10"
+                                    Padding="0"
+                                    IsClippedToBounds="True">
+
+                                <Grid ColumnSpacing="7" BackgroundColor="#0d6a75" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="35" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="20" />
+                                    </Grid.RowDefinitions>
+
+                                     <Label Text="{Binding DateTime, StringFormat='{0:h tt}'}"
+                                            FontAttributes="Bold"
+                                            Grid.Row="0"
+                                            VerticalOptions="Start"
+                                            HorizontalTextAlignment="Center"
+                                            TextColor="White"
+                                            FontSize="17"
+                                            Margin="0,10,0,0" />
+
+                                    <Image Source="{Binding WeatherIcon}"
+                                           Aspect="AspectFit"
+                                           HeightRequest="75"
+                                           WidthRequest="75"
+                                           Grid.Row="1" />
+
+                                    <HorizontalStackLayout Grid.Row="2" HorizontalOptions="Center">
+                                        <Label Text="{Binding Temp, StringFormat='{0:F0}'}" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type local:WeatherViewModel}}, Path=DegreeString}" FontSize="17" TextColor="White" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center">
+                                        <Label Text="{Binding FeelsLike, StringFormat='Feels like {0:F0}'}" FontSize="12" Opacity=".9" Padding="5,0,0,0" VerticalTextAlignment="Start" />
+                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type local:WeatherViewModel}}, Path=DegreeString}" FontSize="11" Opacity=".7" VerticalTextAlignment="Start" />
+                                    </HorizontalStackLayout>
+
+
+                                    <Label Text="{Binding Clouds, StringFormat='Clouds: {0}%'}"
+                                           Grid.Row="4"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="12" />
+
+                                    <Label Text="{Binding Precipitation, StringFormat='Rain: {0:P0}'}"
+                                           Grid.Row="5"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="12"/>
+
+
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <!-- Menu bar grid -->
+        <Border BackgroundColor="#0d6a75"
+                Stroke="#1e241e"
+                StrokeShape="RoundRectangle 30,30,30,30"
+                StrokeThickness="5"
+                Grid.Row="2" VerticalOptions="EndAndExpand"
+                Margin="20,20,20,0"
+                HeightRequest="75">
+
+            <Grid RowSpacing="10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0"
+                        Grid.RowSpan="2"
+                        FontSize="20"
+                        FontFamily="Icons"
+                        Text="&#xE800;"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#0d6a75"
+                        HeightRequest="65"
+                        WidthRequest="50"
+                        Padding="0,-20,0,0"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="home"/>
+
+                <Button Grid.Column="1"
+                        Grid.RowSpan="2"
+                        FontSize="20"
+                        FontFamily="Icons"
+                        Text="&#xE803;"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#0d6a75"
+                        HeightRequest="68"
+                        WidthRequest="75"
+                        Padding="0,-20,0,0"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="" />
+
+                <Button Grid.Column="2"
+                        Grid.RowSpan="2"
+                        FontSize="50"
+                        FontFamily="Icons"
+                        Text="&#xE804;"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#0d6a75"
+                        HeightRequest="68"
+                        WidthRequest="75"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="local" />
+
+                <Button Grid.Column="3"
+                        Grid.RowSpan="2"
+                        FontSize="20"
+                        FontFamily="Icons"
+                        Text="&#xF097;"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#0d6a75"
+                        HeightRequest="68"
+                        WidthRequest="75"
+                        Padding="0,-20,0,0"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="favorites" />
+
+                <Button Grid.Column="4"
+                        Grid.RowSpan="2"
+                        FontSize="18"
+                        FontFamily="Icons"
+                        Text="&#xF278;"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#0d6a75"
+                        HeightRequest="65"
+                        WidthRequest="50"
+                        Padding="0,-20,0,0"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="quick"  />
+
+                <Label Grid.Row="1"
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        Text="Home"
+                        TextColor="White" />
+
+                <Label Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        Text="Weather"
+                        TextColor="White" />
+
+                <Label Grid.Row="1"
+                        Grid.Column="3"
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        Text="Saved"
+                        TextColor="White" />
+
+                <Label Grid.Row="1"
+                        Grid.Column="4"
+                        FontSize="10"
+                        HorizontalOptions="Center"
+                        Text="Nearby"
+                        TextColor="White" />
+
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

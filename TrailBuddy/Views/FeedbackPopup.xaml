@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrailBuddy.Views.FeedbackPopup"
+             xmlns:local="clr-namespace:Trailbuddy"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             BackgroundColor="#E6212121" >
+
+    <mopups:PopupPage.Resources>
+        <ResourceDictionary>
+            <local:MyConverter x:Key="MyConverter"/>
+        </ResourceDictionary>
+    </mopups:PopupPage.Resources>
+
+    <StackLayout VerticalOptions="Start"
+                 HeightRequest="{Binding ScreenHeight}"
+                 WidthRequest="{Binding ScreenWidth}">
+
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+        </StackLayout.GestureRecognizers>
+
+        <Frame WidthRequest="{Binding FrameWidth}"
+               HeightRequest="{Binding FrameHeight}"
+               CornerRadius="25"
+               BackgroundColor="#2f2f30"
+               BorderColor="#2f2f30"
+               IsClippedToBounds="True">
+
+            <Grid RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50" />
+                    <RowDefinition />
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                
+                <Label Text="Feedback / Bug"
+                       FontSize="25"
+                       TextColor="LightGray"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="0"/>
+
+                <!-- Email Field-->
+                <Frame Grid.Row="1"
+                       BackgroundColor="#4b4b4e"
+                       BorderColor="#2f2f30"
+                       CornerRadius="25"
+                       Padding="0"
+                       IsClippedToBounds="True">
+
+                    <Editor x:Name="emailEditor"
+                            Placeholder="Email (optional) ..."
+                            TextColor="DarkGray"
+                            BackgroundColor="#4b4b4e"
+                            Margin="10"/>
+                </Frame>
+
+                <!-- Feedback Entry -->
+                <Frame Grid.Row="2"
+                       BackgroundColor="#4b4b4e"
+                       BorderColor="#2f2f30"
+                       CornerRadius="25"
+                       Padding="0"
+                       IsClippedToBounds="True">
+
+                    <Editor x:Name="feedbackEditor"
+                            Placeholder="Enter here..."
+                            TextColor="DarkGray"
+                            BackgroundColor="#4b4b4e"
+                            Margin="10" />
+                </Frame>
+
+                <!-- Submit button -->
+                <Button x:Name="submitButton"
+                        Text="Submit"
+                        TextColor="LightGray"
+                        BackgroundColor="#0b5e1e"
+                        Command="{Binding Feedback}"
+                        Grid.Row="3">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MyConverter}">
+                            <Binding Path="Text" Source="{x:Reference feedbackEditor}" />
+                            <Binding Path="Text" Source="{x:Reference emailEditor}" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </Frame>
+    </StackLayout>
+</mopups:PopupPage>

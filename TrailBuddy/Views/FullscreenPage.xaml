@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:local="clr-namespace:TrailBuddy.ViewModels" 
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="TrailBuddy.Views.FullscreenPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#212121">
+
+        <Grid>
+            <maps:Map x:Name="trailMap" />
+            <Button FontSize="40"
+                    FontFamily="Icons"
+                    Text="&#xF007;"
+                    TextColor="Black"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                    BackgroundColor="Transparent"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    Margin="10"
+                    Clicked="DoneButton_Clicked" />
+
+        </Grid>
+
+
+</ContentPage>

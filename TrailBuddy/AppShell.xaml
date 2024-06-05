@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TrailBuddy.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TrailBuddy"
+    xmlns:views="clr-namespace:TrailBuddy.Views"
+    >
+
+    <Shell.TitleView>
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="titleLabel"
+                   TextColor="White"
+                   FontSize="15"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   Padding="30,0,0,0"/>
+
+            <ImageButton Source="donate.png"
+                         BackgroundColor="Transparent"
+                         Clicked="donateButton_Clicked"
+                         Grid.Column="1"/>
+        </Grid>
+    </Shell.TitleView>
+
+    <TabBar>
+       <ShellContent Icon="home.png"
+                     ContentTemplate="{DataTemplate views:HomePage}"
+                     Route="home"/>
+       <ShellContent ContentTemplate="{DataTemplate views:LocalPage}"
+                     Route="local"/>
+        
+    </TabBar>
+
+
+    
+</Shell>
+

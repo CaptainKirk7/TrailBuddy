@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:local="clr-namespace:TrailBuddy.ViewModels" 
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="TrailBuddy.Views.LocalPage"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#212121"
+             Title="{Binding Title}">
+
+<Grid RowSpacing="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="400" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button Text="My Trails"
+                    TextColor="LightGray"
+                    FontAttributes="Bold"
+                    FontSize="17"
+                    WidthRequest="100"
+                    HorizontalOptions="EndAndExpand"
+                    BackgroundColor="#212121"
+                    Command="{Binding TrailCommand}" />
+
+            <!-- Map -->
+            <maps:Map x:Name="displayMap"
+                      ItemsSource="{Binding Positions}"
+                      IsShowingUser="{Binding IsShowingUser}"
+                      Grid.Row="1" >
+
+
+            </maps:Map>
+
+            
+            <VerticalStackLayout Grid.Row="2" Margin="10" >
+                <Line Background="#0b5e1e" />
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Button Text="&#xF080;" FontFamily="Icons" HeightRequest="50" WidthRequest="50" FontSize="27" BackgroundColor="#212121" Command="{Binding Stop}" />
+                    <Button Text=" &#xF00F;" FontFamily="Icons" TextColor="LightGray" HeightRequest="80" WidthRequest="80" FontSize="55" BackgroundColor="#212121" Command="{Binding Start}" />
+                    <Button Text="&#xF00E;" FontFamily="Icons" HeightRequest="50" WidthRequest="50" FontSize="27" BackgroundColor="#212121" Command="{Binding Pause}" />
+                </HorizontalStackLayout>
+
+                <Line Background="#0b5e1e" />
+
+                <VerticalStackLayout Spacing="10" Margin="0,20,0,0">
+                    <HorizontalStackLayout>
+                        <Label Text="Elasped Time: " TextColor="LightGray" FontSize="20" HorizontalTextAlignment="Start" />
+                        <Label TextColor="LightGray" Text="{Binding ElapsedTime, StringFormat='{0:F0}'}" FontSize="18" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Opacity=".8"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label TextColor="LightGray" Text="Distance: " FontSize="20" HorizontalTextAlignment="Start" />
+                        <Label TextColor="LightGray" Text="{Binding Distance, StringFormat='{0:F2} '}" FontSize="18" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Opacity=".8" />
+                        <Label TextColor="LightGray" Text="{Binding DistanceAbv}" FontSize="18" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Opacity=".8" Margin="3,0,0,0" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label TextColor="LightGray" Text="Heading: " FontSize="20" HorizontalTextAlignment="Start" />
+                        <Label TextColor="LightGray" Text="{Binding Heading}" FontSize="18" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Opacity=".8" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+            <!-- Menu bar grid -->
+            <Border BackgroundColor="#0b5e1e"
+                    Stroke="#1e241e"
+                    StrokeShape="RoundRectangle 30,30,30,30"
+                    StrokeThickness="5"
+                    Grid.Row="3" Grid.ColumnSpan="3" VerticalOptions="EndAndExpand"
+                    Margin="20,0,20,0"
+                    HeightRequest="75">
+
+                <Grid RowSpacing="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE800;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="home"/>
+
+                    <Button Grid.Column="1"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE803;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="weather" />
+
+                    <Button Grid.Column="2"
+                            Grid.RowSpan="2"
+                            FontSize="50"
+                            FontFamily="Icons"
+                            Text="&#xE804;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="local" />
+
+                    <Button Grid.Column="3"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xF097;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="favorites" />
+
+                    <Button Grid.Column="4"
+                            Grid.RowSpan="2"
+                            FontSize="18"
+                            FontFamily="Icons"
+                            Text="&#xF278;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="quick"  />
+
+                    <Label Grid.Row="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Home"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Weather"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="3"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Saved"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="4"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Nearby"
+                            TextColor="White" />
+
+                </Grid>
+            </Border>
+
+        </Grid>
+</ContentPage>

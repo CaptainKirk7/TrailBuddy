@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:local="clr-namespace:TrailBuddy.ViewModels" 
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="TrailBuddy.Views.LocalListPage"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="White"
+             Shell.BackgroundColor="#0b5e1e"
+             BackgroundColor="#212121"
+             Title="Recorded Trails">
+
+
+        <Grid BackgroundColor="#212121" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+
+            <!-- Filter grid-->
+            <Frame WidthRequest="250"
+                   Margin="0,15,0,0"
+                   Padding="0"
+                   CornerRadius="23"
+                   IsClippedToBounds="True"
+                   BackgroundColor="#2f2f30"
+                   BorderColor="#212121">
+
+                <Grid HorizontalOptions="Center" WidthRequest="250" ColumnSpacing="5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Button BackgroundColor="#595959"
+                            Text="{Binding FilterText}"
+                            TextColor="LightGray"
+                            Command="{Binding FilterSortButton}"/>
+
+                    <Picker x:Name="FilterPicker" Grid.Column="1" SelectedItem="{Binding SortBy}" TextColor="White">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>By Date</x:String>
+                                <x:String>By Distance</x:String>
+                                <x:String>By Name</x:String>
+                                <x:String>By Rating</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                </Grid>
+            </Frame>
+
+
+
+            <!-- Main list view -->
+            <ListView x:Name="ItemsListView"
+                      ItemsSource="{Binding Trails}"
+                      ItemTapped="ItemsListView_ItemTapped"
+                      RowHeight="175"
+                      BackgroundColor="#212121"
+                      HorizontalOptions="CenterAndExpand"
+                      VerticalOptions="CenterAndExpand"
+                      SeparatorColor="#212121"
+                      Grid.Row="1" >
+
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <ViewCell>
+                            <Grid BackgroundColor="#212121" Margin="10">
+                                <Frame HasShadow="True"
+                                        BorderColor="#212121"
+                                        BackgroundColor="#212e21"
+                                        HeightRequest="150"
+                                        WidthRequest="375"
+                                        CornerRadius="25"
+                                        IsClippedToBounds="True">
+
+                                    <Grid ColumnSpacing="7" BackgroundColor="#212e21" Margin="-10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="75"/>
+
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
+
+                                        <Image Source="{Binding ImgUrl}"
+                                           Aspect="AspectFill"
+                                                Grid.Row="0"
+                                                HeightRequest="170"
+                                                WidthRequest="140"
+                                                Grid.RowSpan="3"
+                                                Grid.Column="0" />
+
+                                        <Label Text="{Binding Name}"
+                                                FontAttributes="Bold"
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="1"
+                                                VerticalOptions="Center"
+                                                TextColor="White"
+                                                Padding="10,0,0,0" />
+
+                                        <Label Text="{Binding Address}"
+                                                Opacity="0.6"
+                                                FontSize="11"
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                VerticalOptions="Center"
+                                                TextColor="White"
+                                                Padding="10,0,0,0" />
+
+                                        <Label Text="{Binding Description}"
+                                                Opacity="0.6"
+                                                FontSize="11"
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                VerticalOptions="Center"
+                                                TextColor="White"
+                                                Padding="10,0,0,0" />
+
+                                        <HorizontalStackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                            <Label Text="{Binding Path=Rating, StringFormat='{0} '}" TextColor="White" Margin="0,0,3,0"/>
+                                            <Image Source="star.png" HeightRequest="10" WidthRequest="10" />
+                                            <Label Text="{Binding Path=UserRatingCount, StringFormat=' ({0})'}" TextColor="White"/>
+                                        </HorizontalStackLayout>
+
+                                        <Grid Grid.Row="3"
+                                              Grid.Column="1"
+                                              Grid.ColumnSpan="2"
+                                              Margin="10,0,0,0">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="45"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Text="{Binding DateAdded}"
+                                                   TextColor="LightGray"
+                                                   Opacity=".8"
+                                                   FontSize="11"/>
+
+                                            <Label Text="{Binding DistanceString, StringFormat='{0:F2}'}"
+                                                    TextColor="LightGray"
+                                                    Opacity=".8"
+                                                    FontSize="11"
+                                                    Grid.Column="1"/>
+
+
+                                            <Button
+                                                WidthRequest="5"
+                                                MinimumWidthRequest="45"
+                                                FontSize="20"
+                                                Text="&#xF1F8;"
+                                                FontFamily="Icons"
+                                                TextColor="LightGray"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:LocalListViewModel}}, Path=DeleteCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Grid.Column="2"/>
+
+                                            <ImageButton
+                                                WidthRequest="5"
+                                                Grid.Column="3"
+                                                Source="directions.png"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:LocalListViewModel}}, Path=MapCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </Grid>
+                            
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Menu bar grid -->
+            <Border BackgroundColor="#0b5e1e"
+                    Stroke="#1e241e"
+                    StrokeShape="RoundRectangle 30,30,30,30"
+                    StrokeThickness="5"
+                    Grid.Row="2" VerticalOptions="EndAndExpand"
+                    Margin="20,24,20,0"
+                    HeightRequest="75">
+
+                <Grid RowSpacing="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE800;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="home"/>
+
+                    <Button Grid.Column="1"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xE803;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="weather" />
+
+                    <Button Grid.Column="2"
+                            Grid.RowSpan="2"
+                            FontSize="50"
+                            FontFamily="Icons"
+                            Text="&#xE804;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="local" />
+
+                    <Button Grid.Column="3"
+                            Grid.RowSpan="2"
+                            FontSize="20"
+                            FontFamily="Icons"
+                            Text="&#xF097;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="68"
+                            WidthRequest="75"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="favorites" />
+
+                    <Button Grid.Column="4"
+                            Grid.RowSpan="2"
+                            FontSize="18"
+                            FontFamily="Icons"
+                            Text="&#xF278;"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="#0b5e1e"
+                            HeightRequest="65"
+                            WidthRequest="50"
+                            Padding="0,-20,0,0"
+                            Command="{Binding NavCommand}"
+                            CommandParameter="quick"  />
+
+                    <Label Grid.Row="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Home"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="1"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Weather"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="3"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Saved"
+                            TextColor="White" />
+
+                    <Label Grid.Row="1"
+                            Grid.Column="4"
+                            FontSize="10"
+                            HorizontalOptions="Center"
+                            Text="Nearby"
+                            TextColor="White" />
+
+                </Grid>
+            </Border>
+        </Grid>
+
+
+</ContentPage>

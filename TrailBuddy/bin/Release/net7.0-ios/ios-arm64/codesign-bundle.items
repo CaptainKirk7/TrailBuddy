@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <_CodesignBundle Include="TrailBuddy.app">
+      <CodesignSigningKey>3F7CA2A880939137A9BC9B2000309A468C956922</CodesignSigningKey>
+      <CodesignEntitlements>\Users\kirk\Library\Caches\Xamarin\mtbs\builds\TrailBuddy\2c48a79313918c7b641f77f4423ad4a154854ca3875298bdd649255ebdefe16a\obj\Release\net7.0-ios\ios-arm64\Entitlements.xcent</CodesignEntitlements>
+      <CodesignUseSecureTimestamp></CodesignUseSecureTimestamp>
+      <CodesignAllocate>\Applications\Xcode.app\Contents\Developer\Toolchains\XcodeDefault.xctoolchain\usr\bin\codesign_allocate</CodesignAllocate>
+      <RequireCodeSigning>true</RequireCodeSigning>
+      <CodesignExtraArgs></CodesignExtraArgs>
+      <CodesignResourceRules></CodesignResourceRules>
+      <CodesignDisableTimestamp>false</CodesignDisableTimestamp>
+      <CodesignKeychain></CodesignKeychain>
+      <CodesignUseHardenedRuntime></CodesignUseHardenedRuntime>
+      <SourceProjectPath>C:\Users\nunnk\Documents\cse382_nunnkw\TrailBuddy</SourceProjectPath>
+    </_CodesignBundle>
+  </ItemGroup>
+</Project>

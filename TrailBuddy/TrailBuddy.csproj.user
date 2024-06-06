@@ -23,7 +23,7 @@
 &lt;/dict&gt;
 &lt;/plist&gt;
 </TargetiOSDevice>
-    <DefaultDevice>iPhone 15 Plus iOS 17.0</DefaultDevice>
+    <DefaultDevice>iPad Air (5th generation) iOS 17.0</DefaultDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetPlatformIdentifier)'=='iOS'">
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>

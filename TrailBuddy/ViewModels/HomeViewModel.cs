@@ -96,8 +96,19 @@ public class HomeViewModel : INotifyPropertyChanged
                 {
                     if (_network == NetworkAccess.Internet)
                     {
-                        _navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
-                    } else
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                        }
+                    }
+                    else
                     {
                         DisplayPopup();
                     }
@@ -105,7 +116,17 @@ public class HomeViewModel : INotifyPropertyChanged
                 if (name.Equals("weather"))
                     if (_network == NetworkAccess.Internet)
                     {
-                        await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot retrieve weather.", "Cancel");
+                        }
                     }
                     else
                     {

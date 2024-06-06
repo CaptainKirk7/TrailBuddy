@@ -3,9 +3,14 @@ using TrailBuddy.ViewModels;
 
 public partial class WeatherPage : ContentPage
 {
+	WeatherViewModel _viewModel;
+	WeatherData data;
+
 	public WeatherPage(WeatherData weatherData)
 	{
 		InitializeComponent();
-		BindingContext = new WeatherViewModel(Navigation, weatherData);
+		_viewModel = new WeatherViewModel(Navigation, weatherData);
+		BindingContext = _viewModel;
 	}
+
 }

@@ -13,7 +13,7 @@
 <Grid RowSpacing="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
-                <RowDefinition Height="400" />
+                <RowDefinition Height="*" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 

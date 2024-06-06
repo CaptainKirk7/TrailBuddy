@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TrailBuddy.Views;
@@ -46,7 +48,17 @@ public class WeatherViewModel : INotifyPropertyChanged
                 {
                     if (_network == NetworkAccess.Internet)
                     {
-                        _navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot retrieve weather.", "Cancel");
+                        }
                     }
                     else
                     {
@@ -56,7 +68,17 @@ public class WeatherViewModel : INotifyPropertyChanged
                 if (name.Equals("weather"))
                     if (_network == NetworkAccess.Internet)
                     {
-                        await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                        }
                     }
                     else
                     {
@@ -93,7 +115,7 @@ public class WeatherViewModel : INotifyPropertyChanged
             if (weather != value)
             {
                 weather = value;
-                NotifyPropertyChanged(nameof(WeatherData));
+                NotifyPropertyChanged(nameof(Weather));
             }
         }
         get
@@ -151,18 +173,23 @@ public class WeatherViewModel : INotifyPropertyChanged
     }
 
     // Helper methods -----------------------------------------------------
-    public async void PopulatePage(WeatherData weatherData)
+    public void PopulatePage(WeatherData weatherData)
     {
         if (_network == NetworkAccess.Internet)
         {
             Weather = SetupData(weatherData);
             DegreeString = Preferences.Get("degreeString", "°F");
-            ImageSource = $"https://openweathermap.org/img/w/{weatherData.Current.Weather[0].Icon}.png";
         }
         else
         {
             DisplayPopup(weatherData);
         }
+    }
+
+    public void RefreshWeatherData()
+    {
+        WeatherData dt = SetupData(Weather);
+        Weather = dt;
     }
 
     public async Task DisplayPopup(WeatherData weatherData)

@@ -62,26 +62,36 @@ public class LocalViewModel : INotifyPropertyChanged
         Start = new Command(
             execute: async () =>
             {
-                // If the timer isn't running and its not paused, start for the first time
-                if (!timerRunning && !IsPaused)
+                PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
                 {
-                    playButtonPressed = true;
-                    stopButtonPressed = false;
-                    _stopwatch.Start();
+                    if (!timerRunning && !IsPaused)
+                    {
+                        playButtonPressed = true;
+                        stopButtonPressed = false;
+                        _stopwatch.Start();
 
-                    // Create random string and set it for this trail.
-                    Random random = new Random();
-                    SearchId = random.Next(0, 1000000).ToString();
-                    Preferences.Set("searchId", SearchId);
+                        // Create random string and set it for this trail.
+                        Random random = new Random();
+                        SearchId = random.Next(0, 1000000).ToString();
+                        Preferences.Set("searchId", SearchId);
 
-                    ToggleBackgroundLocation();
-                    ToggleTimer();
+                        ToggleBackgroundLocation();
+                        ToggleTimer();
 
-                    RefreshCanExecutes();
-                } else if (!timerRunning && IsPaused)
+                        RefreshCanExecutes();
+                    }
+                    else if (!timerRunning && IsPaused)
+                    {
+                        // If the timer isn't running, and is paused, just resume.
+                        TogglePause();
+                    }
+                }
+                else
                 {
-                    // If the timer isn't running, and is paused, just resume.
-                    TogglePause();
+                    await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot record trail.", "Cancel");
                 }
 
             }
@@ -90,35 +100,46 @@ public class LocalViewModel : INotifyPropertyChanged
         Stop = new Command(
             execute: async () =>
             {
-                _stopwatch.Stop();
-                _stopwatch.Reset();
-                timerRunning = false;
-                stopButtonPressed = true;
+                PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
-                // Stops background location
-                ToggleBackgroundLocation();
+                if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                {
+                    _stopwatch.Stop();
+                    _stopwatch.Reset();
+                    timerRunning = false;
+                    stopButtonPressed = true;
 
-                // Create trail
-                int count = DB.conn.Table<LocalTrails>().ToList().Count() + 1;
+                    // Stops background location
+                    ToggleBackgroundLocation();
 
-                LocalTrails lc = new LocalTrails();
-                lc.PlaceId = SearchId;
-                lc.Name = $"Trail {count}";
-                lc.DateAdded = DateTime.Now.ToString("MM-dd-yy");
-                lc.DetailedDateAdded = DateTime.Now.ToString();
-                lc.TotalTime = ElapsedTime;
-                lc.Address = Title;
-                lc.Rating = 5;
-                lc.DistanceTraveled = Distance;
-                lc.DistanceAbv = DistanceAbv;
+                    // Create trail
+                    int count = DB.conn.Table<LocalTrails>().ToList().Count() + 1;
 
-                // Open modal with more info to save
-                await _navigation.PushModalAsync(new ModalPage(lc, "Save Trail"));
+                    LocalTrails lc = new LocalTrails();
+                    lc.PlaceId = SearchId;
+                    lc.Name = $"Trail {count}";
+                    lc.DateAdded = DateTime.Now.ToString("MM-dd-yy");
+                    lc.DetailedDateAdded = DateTime.Now.ToString();
+                    lc.TotalTime = ElapsedTime;
+                    lc.Address = Title;
+                    lc.Rating = 5;
+                    lc.DistanceTraveled = Distance;
+                    lc.DistanceAbv = DistanceAbv;
 
-                // TODO: Save current details and open new screen for more info
-                ElapsedTime = "00:00:00";
-                Distance = 0.0;
-                RefreshCanExecutes();
+                    // Open modal with more info to save
+                    await _navigation.PushModalAsync(new ModalPage(lc, "Save Trail"));
+
+                    // TODO: Save current details and open new screen for more info
+                    ElapsedTime = "00:00:00";
+                    Distance = 0.0;
+                    RefreshCanExecutes();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                }
+
             },
             canExecute: () =>
             {
@@ -127,9 +148,20 @@ public class LocalViewModel : INotifyPropertyChanged
         );
 
         Pause = new Command(
-            execute: () =>
+            execute: async () =>
             {
-                TogglePause();
+                PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                {
+                    TogglePause();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                }
+
             },
             canExecute: () =>
             {
@@ -150,7 +182,17 @@ public class LocalViewModel : INotifyPropertyChanged
                 {
                     if (_network == NetworkAccess.Internet)
                     {
-                        _navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                        }
                     }
                     else
                     {
@@ -160,7 +202,17 @@ public class LocalViewModel : INotifyPropertyChanged
                 if (name.Equals("weather"))
                     if (_network == NetworkAccess.Internet)
                     {
-                        await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot retrieve weather.", "Cancel");
+                        }
                     }
                     else
                     {

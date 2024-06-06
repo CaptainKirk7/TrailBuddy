@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lTqadO8Ed1FXtrqS4QfIFJeG5HjHgPF0bfHEa60ywnP35zKxYuf+pugvGD03fh7lveNkjQHJ+tyDZHpl5IM2Dg==",
+  "dgSpecHash": "+FDQ9DD8fWH2nyph9ehk10eYBTk5zQOvzjYYbA1YR3xUU2swck4qBZAKAzuho7if5QUIBUpPEpvG08gHZ0OXwQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nunnk\\Documents\\cse382_nunnkw\\TrailBuddy\\TrailBuddy.csproj",
+  "projectFilePath": "C:\\Users\\nunnk\\Documents\\TrailBuddy\\TrailBuddy\\TrailBuddy.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nunnk\\.nuget\\packages\\asyncawaitbestpractices\\6.0.4\\asyncawaitbestpractices.6.0.4.nupkg.sha512",
     "C:\\Users\\nunnk\\.nuget\\packages\\geolocator.plugin\\1.0.2\\geolocator.plugin.1.0.2.nupkg.sha512",

@@ -3628,11 +3628,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nunnk\\Documents\\cse382_nunnkw\\TrailBuddy\\TrailBuddy.csproj",
+      "projectUniqueName": "C:\\Users\\nunnk\\Documents\\TrailBuddy\\TrailBuddy\\TrailBuddy.csproj",
       "projectName": "TrailBuddy",
-      "projectPath": "C:\\Users\\nunnk\\Documents\\cse382_nunnkw\\TrailBuddy\\TrailBuddy.csproj",
+      "projectPath": "C:\\Users\\nunnk\\Documents\\TrailBuddy\\TrailBuddy\\TrailBuddy.csproj",
       "packagesPath": "C:\\Users\\nunnk\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nunnk\\Documents\\cse382_nunnkw\\TrailBuddy\\obj\\",
+      "outputPath": "C:\\Users\\nunnk\\Documents\\TrailBuddy\\TrailBuddy\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

@@ -10,6 +10,7 @@ public partial class HomePage : ContentPage
 {
     private HomeViewModel _viewModel;
     NetworkAccess _network;
+    int startupNum = 0;
 
     public HomePage()
     {
@@ -42,7 +43,12 @@ public partial class HomePage : ContentPage
 
     public async void PopulateData()
     {
-            // refresh the current location
+        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+        // refresh the current location
+        if (locAlways == PermissionStatus.Granted || locInUse == PermissionStatus.Granted)
+        {
             await _viewModel.UpdateCurrentLocation();
 
             // when page is loaded, center location and populate pins
@@ -64,6 +70,7 @@ public partial class HomePage : ContentPage
             {
                 DisplayPopup();
             }
+        }
 
     }
 
@@ -74,14 +81,20 @@ public partial class HomePage : ContentPage
 
         if (locAlways == PermissionStatus.Denied || locInUse == PermissionStatus.Denied)
         {
-            bool answer = await App.Current.MainPage.DisplayAlert("Error", "Please enable location permissions to continue", "Retry", "Cancel");
-            if (answer)
+            if (startupNum < 1)
             {
-                DisplayPermissionPopup();
+                bool answer = await App.Current.MainPage.DisplayAlert("Error", "Location not enabled. We could not find trails near you. Please use the search bar to look for trails. You may still search for trails.", "Retry", "Continue");
+                if (answer)
+                {
+                    DisplayPermissionPopup();
+                }
             } else
             {
-                PopulateData();
+                return;
             }
+
+            startupNum++; 
+
         } else
         {
             PopulateData();

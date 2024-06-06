@@ -35,12 +35,12 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
+            
             <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
                 <Image Source="{Binding Weather.WeatherIcon}"
                         Aspect="AspectFit"
                         HeightRequest="150"
-                        WidthRequest="200"/>
+                        WidthRequest="200" />
 
                 <Label Text="{Binding Weather.Current.Weather[0].Description}" FontSize="25" HorizontalTextAlignment="Center" TextColor="#c8f4f9" />
             </VerticalStackLayout>

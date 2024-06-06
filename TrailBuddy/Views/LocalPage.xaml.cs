@@ -3,6 +3,7 @@
 using System.ComponentModel;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
+using ThreadNetwork;
 using TrailBuddy.ViewModels;
 
 public partial class LocalPage : ContentPage
@@ -72,13 +73,18 @@ public partial class LocalPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
-        // refresh the current location
-        await _viewModel.UpdateCurrentLocation();
-        _viewModel.UpdateDistanceAbv();
+        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+        {
+            // refresh the current location
+            await _viewModel.UpdateCurrentLocation();
+            _viewModel.UpdateDistanceAbv();
 
-        // when page is loaded, center location and populate pins
-        CenterMapOnLocation(_viewModel.CurrentLocation);
+            // when page is loaded, center location and populate pins
+            CenterMapOnLocation(_viewModel.CurrentLocation);
+        }
     }
 
     private void CenterMapOnLocation(Location location, double zoom = -1.0)

@@ -36,6 +36,7 @@ public class TrailViewModel : INotifyPropertyChanged
         _network = Connectivity.Current.NetworkAccess;
         FilterText = "Asc";
 
+
         if (_network == NetworkAccess.Internet)
         {
             // Creating items for picker
@@ -83,7 +84,16 @@ public class TrailViewModel : INotifyPropertyChanged
                 {
                     if (_network == NetworkAccess.Internet)
                     {
-                        _navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await navigation.PushAsync(new TrailPage(await _client.GetTrailData(), "Nearby Search"), false);
+                        } else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot find nearby trails.", "Cancel");
+                        }
                     }
                     else
                     {
@@ -93,7 +103,17 @@ public class TrailViewModel : INotifyPropertyChanged
                 if (name.Equals("weather"))
                     if (_network == NetworkAccess.Internet)
                     {
-                        await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+                        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                        if (locAlways != PermissionStatus.Denied || locInUse != PermissionStatus.Denied)
+                        {
+                            await _navigation.PushAsync(new WeatherPage(await _client.GetWeather()));
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Location not enabled, cannot retrieve weather.", "Cancel");
+                        }
                     }
                     else
                     {
@@ -423,7 +443,9 @@ public class TrailViewModel : INotifyPropertyChanged
 
     private async Task<List<Place>> SetupPlaces(bool nearby, List<Place> places)
     {
-        Location currentLocation = await _client.CurrentLoc();
+        PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+        PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
         bool refreshSearchedTrails = Preferences.Get("refreshSearchedTrails", false);
         nearbyBool = nearby;
         Task<ImageSource> sc = null;
@@ -452,8 +474,10 @@ public class TrailViewModel : INotifyPropertyChanged
             // (Preferences.Get($"{place.Id}_Distance", null) == null) || Preferences.Get("refreshDistanceUnits", false) || refreshSearchedTrails || nearby
 
             // Disabled by default. If true, includes distance calculations
-            if (Preferences.Get("searchIncludesDistance", false) || title == "Nearby Search")
+            if (Preferences.Get("searchIncludesDistance", false) || title == "Nearby Search" && locAlways != PermissionStatus.Denied && locInUse != PermissionStatus.Denied)
             {
+                Location currentLocation = await _client.CurrentLoc();
+
                 object[] info = await _client.GetDistance(currentLocation, $"{place.Geometry.Location.Latitude} {place.Geometry.Location.Longitude}");
                 place.Distance = double.Parse(info[0].ToString());
                 place.DistanceString = $"{info[1].ToString()} away";

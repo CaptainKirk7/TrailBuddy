@@ -344,41 +344,52 @@ public class ModalViewModel : INotifyPropertyChanged
     {
         PermissionStatus cameraStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
-        if (cameraStatus == PermissionStatus.Granted)
+        if (cameraStatus == PermissionStatus.Granted || cameraStatus == PermissionStatus.Unknown)
         {
-            if (MediaPicker.Default.IsCaptureSupported)
+            try
             {
-                // Take or pick an image
-                if (takeImg == "true")
+                if (MediaPicker.Default.IsCaptureSupported)
                 {
-
-                    FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-
-                    if (photo != null)
+                    // Take or pick an image
+                    if (takeImg == "true")
                     {
-                        string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-                        using Stream sourceStream = await photo.OpenReadAsync();
-                        using FileStream localFileStream = File.OpenWrite(localFilePath);
-                        await sourceStream.CopyToAsync(localFileStream);
 
-                        // Saving the image path
-                        ImgPath = localFilePath;
+                        FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+
+                        if (photo != null)
+                        {
+                            string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                            using Stream sourceStream = await photo.OpenReadAsync();
+                            using FileStream localFileStream = File.OpenWrite(localFilePath);
+                            await sourceStream.CopyToAsync(localFileStream);
+
+                            // Saving the image path
+                            ImgPath = localFilePath;
+                        }
                     }
+                    else
+                    {
+                        FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+
+                        if (photo != null)
+                        {
+                            string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                            using Stream sourceStream = await photo.OpenReadAsync();
+                            using FileStream localFileStream = File.OpenWrite(localFilePath);
+                            await sourceStream.CopyToAsync(localFileStream);
+
+                            // Saving the image path
+                            ImgPath = localFilePath;
+                        }
+                    }
+
                 }
-                else
+            }
+            catch (Exception e)
+            {
+                if (cameraStatus == PermissionStatus.Denied)
                 {
-                    FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-                    if (photo != null)
-                    {
-                        string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-                        using Stream sourceStream = await photo.OpenReadAsync();
-                        using FileStream localFileStream = File.OpenWrite(localFilePath);
-                        await sourceStream.CopyToAsync(localFileStream);
-
-                        // Saving the image path
-                        ImgPath = localFilePath;
-                    }
+                    DisplayPopup(takeImg);
                 }
             }
         } else

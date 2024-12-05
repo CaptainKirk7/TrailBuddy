@@ -32,6 +32,15 @@ public partial class HomePage : ContentPage
         PermissionStatus locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
         PermissionStatus locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
+        if (locAlways == PermissionStatus.Unknown || locInUse == PermissionStatus.Unknown)
+        {
+            await Permissions.RequestAsync<Permissions.LocationAlways>();
+            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            locAlways = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+            locInUse = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+        }
+
         if (locAlways == PermissionStatus.Granted || locInUse == PermissionStatus.Granted)
         {
             PopulateData();

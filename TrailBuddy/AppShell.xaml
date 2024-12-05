@@ -6,7 +6,8 @@
     xmlns:local="clr-namespace:TrailBuddy"
     xmlns:views="clr-namespace:TrailBuddy.Views"
     >
-
+    
+    <!-- 
     <Shell.TitleView>
         <Grid ColumnSpacing="10">
             <Grid.ColumnDefinitions>
@@ -27,6 +28,7 @@
                          Grid.Column="1"/>
         </Grid>
     </Shell.TitleView>
+    -->
 
     <TabBar>
        <ShellContent Icon="home.png"

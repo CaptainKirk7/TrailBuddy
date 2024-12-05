@@ -25,9 +25,10 @@
         </Grid.RowDefinitions>
 
         <!-- Main List View -->
-        <Grid BackgroundColor="#212121" Margin="25" ColumnSpacing="10" RowSpacing="10">
+        <Grid BackgroundColor="#212121" ColumnSpacing="10" RowSpacing="10" Margin="25" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
@@ -35,18 +36,23 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
-            <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2">
-                <Image Source="{Binding Weather.WeatherIcon}"
-                        Aspect="AspectFit"
-                        HeightRequest="150"
-                        WidthRequest="200" />
 
-                <Label Text="{Binding Weather.Current.Weather[0].Description}" FontSize="25" HorizontalTextAlignment="Center" TextColor="#c8f4f9" />
-            </VerticalStackLayout>
+            <Image Source="{Binding Weather.WeatherIcon}"
+                   Aspect="AspectFit"
+                   WidthRequest="200" 
+                   HorizontalOptions="Center"
+                   Grid.ColumnSpan="2"/>
+            
+            <Label Text="{Binding Weather.Current.Weather[0].Description}" 
+                   FontSize="25" 
+                   HorizontalTextAlignment="Center" 
+                   TextColor="#c8f4f9" 
+                   HorizontalOptions="Center"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"/>
 
             <!-- Main Info -->
-            <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" >
+            <VerticalStackLayout Grid.Row="2" HorizontalOptions="Center" >
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" >
                     <Label Text="{Binding Weather.Current.Temp, StringFormat='{0:F0}'}" FontSize="30" VerticalTextAlignment="Center" />
                     <Label Text="{Binding DegreeString}" FontSize="30" VerticalTextAlignment="Center" />
@@ -55,7 +61,7 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Start">
+            <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="Start">
                 <HorizontalStackLayout HorizontalOptions="Start">
                     <Label Text="{Binding Weather.Daily[0].Temp.Max, StringFormat='High: {0:F0}'}" FontSize="17" />
                     <Label Text="{Binding DegreeString}" FontSize="17" />
@@ -72,8 +78,8 @@
                     ItemsSource="{Binding Weather.Hourly}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="StartAndExpand"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2">
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2" >
 
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />

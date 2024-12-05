@@ -12,7 +12,7 @@
       <CodesignDisableTimestamp>true</CodesignDisableTimestamp>
       <CodesignKeychain></CodesignKeychain>
       <CodesignUseHardenedRuntime></CodesignUseHardenedRuntime>
-      <SourceProjectPath>C:\Users\nunnk\Documents\cse382_nunnkw\TrailBuddy</SourceProjectPath>
+      <SourceProjectPath>C:\Users\nunnk\Documents\TrailBuddy\TrailBuddy</SourceProjectPath>
     </_CodesignBundle>
   </ItemGroup>
 </Project>

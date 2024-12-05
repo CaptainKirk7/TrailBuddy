@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrailBuddy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3+c476f1ab655212fd87b1aa137a4ab556c40e0786")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3+e421cc150d0a30dff75372774f8819f2cacbd8fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrailBuddy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrailBuddy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.0.0.0")]

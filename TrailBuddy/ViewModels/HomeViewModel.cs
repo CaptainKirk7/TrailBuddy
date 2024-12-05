@@ -77,6 +77,9 @@ public class HomeViewModel : INotifyPropertyChanged
 
                 if (locAlways == PermissionStatus.Granted || locInUse == PermissionStatus.Granted)
                 {
+                    await UpdateCurrentLocation();
+                    PopulateData(CurrentLocation);
+
                     await CenterOnUserLocation();
                     await PopulatePins(CurrentLocation);
                 }

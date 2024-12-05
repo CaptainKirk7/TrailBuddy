@@ -12,101 +12,101 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TrailBud
-build_property.ProjectDir = C:\Users\nunnk\Documents\cse382_nunnkw\TrailBuddy\
+build_property.ProjectDir = C:\Users\nunnk\Documents\TrailBuddy\TrailBuddy\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/App.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/AppShell.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Resources/Styles/Colors.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Resources/Styles/Styles.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/FavoritesPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/FavoritesPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.FavoritesPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\FavoritesPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\FavoritesPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/FeedbackPopup.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/FeedbackPopup.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.FeedbackPopup.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\FeedbackPopup.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\FeedbackPopup.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/FullscreenPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/FullscreenPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.FullscreenPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\FullscreenPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\FullscreenPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/HomePage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/HomePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.HomePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\HomePage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\HomePage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/InfoPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/InfoPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.InfoPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\InfoPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\InfoPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/LocalListPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/LocalListPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.LocalListPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\LocalListPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\LocalListPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/LocalPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/LocalPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.LocalPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\LocalPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\LocalPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/ModalPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/ModalPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.ModalPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\ModalPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\ModalPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/PreferencePage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/PreferencePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.PreferencePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\PreferencePage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\PreferencePage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/TrailPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/TrailPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.TrailPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\TrailPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\TrailPage.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/ViewImagePopup.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/ViewImagePopup.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.ViewImagePopup.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\ViewImagePopup.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\ViewImagePopup.xaml
 
-[C:/Users/nunnk/Documents/cse382_nunnkw/TrailBuddy/Views/WeatherPage.xaml]
+[C:/Users/nunnk/Documents/TrailBuddy/TrailBuddy/Views/WeatherPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TrailBud.Views.WeatherPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\WeatherPage.xaml

@@ -18,4 +18,12 @@ public partial class FavoritesPage : ContentPage
         Favorites f = e.Item as Favorites;
         Navigation.PushAsync(new InfoPage(null, f));
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Refreshes list data upon loading
+        _viewModel.PopulatePage();
+    }
 }

@@ -7,9 +7,9 @@
       <dSYMSourcePathExists>false</dSYMSourcePathExists>
       <NoSymbolStrip>true</NoSymbolStrip>
       <dSYMInfoPlistRelativePath>TrailBuddy.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
-      <SymbolFile>\Users\kirk\Library\Caches\Xamarin\mtbs\builds\TrailBuddy\2c48a79313918c7b641f77f4423ad4a154854ca3875298bdd649255ebdefe16a\obj\Debug\net7.0-ios\iossimulator-x64\mtouch-symbols.list</SymbolFile>
+      <SymbolFile>\Users\kirk\Library\Caches\Xamarin\mtbs\builds\TrailBuddy\a26901b03bbb1064fbf71f7e97ed81f056fa6591788c33fe25a82a3c09e153ea\obj\Debug\net7.0-ios\iossimulator-x64\mtouch-symbols.list</SymbolFile>
       <DSymName>TrailBuddy.app.dSYM</DSymName>
-      <SourceProjectPath>C:\Users\nunnk\Documents\cse382_nunnkw\TrailBuddy</SourceProjectPath>
+      <SourceProjectPath>C:\Users\nunnk\Documents\TrailBuddy\TrailBuddy</SourceProjectPath>
     </_PostProcessingItem>
   </ItemGroup>
 </Project>

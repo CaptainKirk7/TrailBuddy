@@ -9,26 +9,15 @@
              Shell.TabBarIsVisible="False"
              BackgroundColor="#212121">
 
-        <Grid Margin="20,25,20,25" RowSpacing="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="100" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="3.5*"/>
-                <RowDefinition Height="60" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
 
-            <Line BackgroundColor="#8A153C" StrokeThickness="1" HeightRequest="3" Margin="0,-9,0,0" Grid.Row="0" Grid.ColumnSpan="2"/>
-            <Label 
+        <Line BackgroundColor="#8A153C" StrokeThickness="1" HeightRequest="3" Margin="0,-9,0,0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Label 
                 Text="{Binding Title}"
                 TextColor="#8A153C"
                 BackgroundColor="#212121"
@@ -40,63 +29,80 @@
                 Grid.Row="0"
                 Grid.ColumnSpan="2"/>
 
-            <Label Text="Elapsed Time:" TextColor="LightGray" Grid.Row="1"  FontSize="18"/>
-            <Label Text="{Binding ElapsedTime}" TextColor="LightGray" Grid.Row="1" Grid.Column="1"  FontSize="18" VerticalTextAlignment="Center"/>
+        <ScrollView Grid.Row="1" Margin="20,5,20,5">
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="3.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <Label Text="Distance:" TextColor="LightGray" Grid.Row="2"  FontSize="18"/>
-            <HorizontalStackLayout Grid.Row="2" Grid.Column="1">
-                <Label Text="{Binding TotalDistance, StringFormat='{0:F2}'}" TextColor="LightGray" FontSize="18" VerticalTextAlignment="Center"/>
-                <Label Text="{Binding DistanceAbv, StringFormat=' {0}'}" TextColor="LightGray" FontSize="18" VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
+                <Label Text="Elapsed Time:" TextColor="LightGray" Grid.Row="0"  FontSize="18"/>
+                <Label Text="{Binding ElapsedTime}" TextColor="LightGray" Grid.Row="0" Grid.Column="1"  FontSize="18" VerticalTextAlignment="Center"/>
 
-            <Label Text="Name: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="0" />
-            <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="3" Grid.Column="1">
-                <ScrollView>
-                    <Editor Text="{Binding TrailName, Mode=TwoWay}" BackgroundColor="#414141" FontSize="15" TextColor="LightGray" Opacity=".8" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="5,0,0,0" />
-                </ScrollView>
-            </Frame>
+                <Label Text="Distance:" TextColor="LightGray" Grid.Row="1"  FontSize="18"/>
+                <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                    <Label Text="{Binding TotalDistance, StringFormat='{0:F2}'}" TextColor="LightGray" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Label Text="{Binding DistanceAbv, StringFormat=' {0}'}" TextColor="LightGray" FontSize="18" VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
 
-            <Label Text="Address: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="0"  />
-            <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="4" Grid.Column="1">
-                <ScrollView>
-                    <Editor Text="{Binding AddressEntry, Mode=TwoWay}" BackgroundColor="#414141" FontSize="15" TextColor="LightGray" Opacity=".8" HorizontalTextAlignment="Start" Margin="5,0,0,0" />
-                </ScrollView>
-            </Frame>
+                <Label Text="Name: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="0" />
+                <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="2" Grid.Column="1">
+                    <ScrollView>
+                        <Editor Text="{Binding TrailName, Mode=TwoWay}" BackgroundColor="#414141" FontSize="15" TextColor="LightGray" Opacity=".8" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="5,0,0,0" />
+                    </ScrollView>
+                </Frame>
 
-            <Label Text="Description: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Start" Grid.Row="5" Grid.Column="0"  />
-            <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="5" Grid.Column="1" >
-                <ScrollView>
-                    <Editor Text="{Binding DescriptionEntry, Mode=TwoWay}" BackgroundColor="#414141" HeightRequest="150" VerticalTextAlignment="Start" HorizontalTextAlignment="Start" FontSize="15" TextColor="LightGray" Opacity=".8"  />
-                </ScrollView>
-            </Frame>
+                <Label Text="Address: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="0"  />
+                <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="3" Grid.Column="1">
+                    <ScrollView>
+                        <Editor Text="{Binding AddressEntry, Mode=TwoWay}" BackgroundColor="#414141" FontSize="15" TextColor="LightGray" Opacity=".8" HorizontalTextAlignment="Start" Margin="5,0,0,0" />
+                    </ScrollView>
+                </Frame>
 
-            <HorizontalStackLayout  Grid.Row="6" >
-                <Label Text="Image:" TextColor="LightGray" FontSize="22"/>
-                <Button Text="view" Margin="5" BackgroundColor="#212121" Padding="0,0,0,10" TextColor="{Binding ButtonColor}" Command="{Binding ViewImage}"/>
-            </HorizontalStackLayout>
+                <Label Text="Description: " TextColor="LightGray" FontSize="22" VerticalTextAlignment="Start" Grid.Row="4" Grid.Column="0"  />
+                <Frame Padding="0" BackgroundColor="#414141" BorderColor="#212121" IsClippedToBounds="True" Grid.Row="4" Grid.Column="1" >
+                    <ScrollView>
+                        <Editor Text="{Binding DescriptionEntry, Mode=TwoWay}" BackgroundColor="#414141" HeightRequest="150" VerticalTextAlignment="Start" HorizontalTextAlignment="Start" FontSize="15" TextColor="LightGray" Opacity=".8"  />
+                    </ScrollView>
+                </Frame>
 
-            <Grid ColumnDefinitions="2*,*" Grid.Row="6" Grid.Column="1" ColumnSpacing="5">
-                <Button Text="&#xE806;" BackgroundColor="#8A153C" TextColor="LightGray" FontFamily="Icons" Command="{Binding ImageCommand}" CommandParameter="true"/>
-                <Button Text="&#xE805;" BackgroundColor="#8A153C" TextColor="LightGray" FontFamily="Icons" Grid.Column="1" Command="{Binding ImageCommand}" CommandParameter="false" />
-            </Grid>
+                <HorizontalStackLayout  Grid.Row="5" >
+                    <Label Text="Image:" TextColor="LightGray" FontSize="22"/>
+                    <Button Text="view" Margin="5" BackgroundColor="#212121" Padding="0,0,0,10" TextColor="{Binding ButtonColor}" Command="{Binding ViewImage}"/>
+                </HorizontalStackLayout>
 
-            <Label Text="{Binding RatingSlider, StringFormat='Rating ({0:F0}):'}" TextColor="LightGray" FontSize="22" HorizontalTextAlignment="Start" Grid.Row="7" Grid.Column="0"/>
-            <Slider x:Name="distanceSlider"
+                <Grid ColumnDefinitions="2*,*" Grid.Row="5" Grid.Column="1" ColumnSpacing="5">
+                    <Button Text="&#xE806;" BackgroundColor="#8A153C" TextColor="LightGray" FontFamily="Icons" Command="{Binding ImageCommand}" CommandParameter="true"/>
+                    <Button Text="&#xE805;" BackgroundColor="#8A153C" TextColor="LightGray" FontFamily="Icons" Grid.Column="1" Command="{Binding ImageCommand}" CommandParameter="false" />
+                </Grid>
+
+                <Label Text="{Binding RatingSlider, StringFormat='Rating ({0:F0}):'}" TextColor="LightGray" FontSize="22" HorizontalTextAlignment="Start" Grid.Row="6" Grid.Column="0"/>
+                <Slider x:Name="distanceSlider"
                     Minimum="1"
                     Maximum="5"
                     Value="{Binding RatingSlider, Mode=TwoWay}"
                     MaximumTrackColor="LightGray"
                     MinimumTrackColor="LightGray"
                     ThumbColor="#8A153C"
-                    Grid.Row="7"
+                    Grid.Row="6"
                     Grid.Column="1"
                     VerticalOptions="Center"/>
 
-            <!-- Map -->
-            <Frame Grid.Row="8" Grid.ColumnSpan="2" Padding="0" IsClippedToBounds="True">
-                <Grid>
-                    <maps:Map x:Name="trailMap"/>
-                    <Button
+                <!-- Map -->
+                <Frame Grid.Row="7" Grid.ColumnSpan="2" Padding="0" IsClippedToBounds="True">
+                    <Grid>
+                        <maps:Map x:Name="trailMap"/>
+                        <Button
                         Text="&#xE811;"
                         FontFamily="Icons"
                         WidthRequest="50"
@@ -109,23 +115,26 @@
                         TextColor="Black"
                         Command="{Binding FullscreenCommand}"
                         CommandParameter="{Binding MapId}" />
-                </Grid>
-            </Frame>
+                    </Grid>
+                </Frame>
+            </Grid>
 
-            <Button Text="Save"
+        </ScrollView>
+
+        <Button Text="Save"
                     TextColor="LightGray"
                     FontSize="20"
                     Margin="7"
                     BackgroundColor="#8A153C"
-                    Grid.Row="9"
+                    Grid.Row="2"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
                     WidthRequest="200"
                     Command="{Binding SaveCommand}"
                     CommandParameter="{Binding Title}"/>
-            
-            
-        </Grid>
+
+
+    </Grid>
 
 
 </ContentPage>

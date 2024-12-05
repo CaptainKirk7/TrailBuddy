@@ -30,17 +30,21 @@ public class Favorites
     // Helper methods -----------------------------------------------------
     public List<Favorites> UpdateList(List<Favorites> fav)
     {
-        foreach (Favorites f in fav)
+        if (fav != null)
         {
-            if (!f.Source.Equals("null"))
+            foreach (Favorites f in fav)
             {
-                f.ImageSource = ImageSource.FromUri(new Uri(f.Source));
-            } else
-            {
-                f.ImageSource = ImageSource.FromFile("no_image.png");
-            }
+                if (!f.Source.Equals("null"))
+                {
+                    f.ImageSource = ImageSource.FromUri(new Uri(f.Source));
+                }
+                else
+                {
+                    f.ImageSource = ImageSource.FromFile("no_image.png");
+                }
 
-            f.FavoriteImage = ImageSource.FromFile(f.FavoriteSource);
+                f.FavoriteImage = ImageSource.FromFile(f.FavoriteSource);
+            }
         }
 
         return fav;

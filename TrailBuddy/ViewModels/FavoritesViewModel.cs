@@ -130,8 +130,7 @@ public class FavoritesViewModel : INotifyPropertyChanged
         if (_network != NetworkAccess.Internet)
         {
             bool result = await App.Current.MainPage.DisplayAlert("Error", "No internet connection detected", "Retry", "Cancel");
-            if (result)
-                NavCommand.Execute(name);
+            if (result) NavCommand.Execute(name);
         }
     }
 
